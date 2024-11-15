@@ -1,0 +1,9 @@
+<h1>{{ title }}</h1>
+<div class="stats">
+  @for (item of headerData; track $index) {
+  <div>
+    <span>{{ item.data }}</span>
+    <div class="count">10</div>
+  </div>
+  }
+</div>
