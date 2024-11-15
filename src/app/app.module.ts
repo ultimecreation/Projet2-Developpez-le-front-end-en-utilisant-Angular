@@ -6,11 +6,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HeaderComponent } from "./components/header/header.component";
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, NotFoundComponent],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, HeaderComponent],
-    providers: [],
+    providers: [
+    provideCharts(withDefaultRegisterables())
+  ],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

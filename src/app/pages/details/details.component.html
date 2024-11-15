@@ -1,9 +1,21 @@
 <app-header
   title="Name of the country"
   [headerData]="[
-    { data: 'Number of entries', count: 3 },
-    { data: 'Total number medals', count: 5 },
-    { data: 'Total number of athletes', count: 32 }
+    { data: 'Number of entries', count: totalParticipationsCount },
+    { data: 'Total number medals', count: totalMedalsCount },
+    { data: 'Total number of athletes', count: totalAtheletesCount }
   ]"
 >
 </app-header>
+<a routerLink="/">< Go Back</a>
+
+<div style="display: block">
+  <canvas
+    baseChart
+    width="400"
+    height="400"
+    [type]="'bar'"
+    [data]="barChartData"
+  >
+  </canvas>
+</div>
