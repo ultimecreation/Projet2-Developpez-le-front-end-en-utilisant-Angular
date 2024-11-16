@@ -26,7 +26,17 @@ export class OlympicService {
     }
 
     getOlympics() {
-        return this.olympics$.asObservable();
+        // return this.olympics$.asObservable();
+        return this.http.get<any>(this.olympicUrl).pipe(
+            tap((value) => this.olympics$.next(value)),
+            catchError((error, caught) => {
+                // TODO: improve error handling
+                console.error(error);
+                // can be useful to end loading state and let the user know something went wrong
+                this.olympics$.next(null);
+                return caught;
+            })
+        );
     }
     getOlympicById(id: string) {
         return this.http.get<any>(this.olympicUrl).pipe(
@@ -39,17 +49,21 @@ export class OlympicService {
                 return caught;
             })
         );
-        // return this.http.get<any>(this.olympicUrl).pipe(
-        //     map((value) => value.find((val: any) => val.id == id)),
-        //     catchError((error, caught) => {
-        //         // TODO: improve error handling
-        //         console.error(error);
-        //         // can be useful to end loading state and let the user know something went wrong
-        //         this.olympics$.next(null);
-        //         return caught;
-        //     })
-        // );
     }
+
+    getOlympicByCountry(country: string) {
+        return this.http.get<any>(this.olympicUrl).pipe(
+            map((value) => value.find((val: any) => val.country == country)),
+            catchError((error, caught) => {
+                // TODO: improve error handling
+                console.error(error);
+                // can be useful to end loading state and let the user know something went wrong
+                this.olympics$.next(null);
+                return caught;
+            })
+        );
+    }
+
 
 
 }

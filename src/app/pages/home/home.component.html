@@ -1,10 +1,20 @@
 <app-header
   title="Medals per country"
   [headerData]="[
-    { data: 'Number of JOs', count: 10 },
-    { data: 'Number of countries', count: 10 }
+    { data: 'Number of JOs', count: joCount },
+    { data: 'Number of countries', count: countriesCount }
   ]"
 >
 </app-header>
 
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<!-- <p>{{ (olympics$ | async)?.length }} data loaded</p> -->
+<div class="container" style="height: 800px">
+  <canvas
+    baseChart
+    [type]="'pie'"
+    [datasets]="pieChartDatasets"
+    [labels]="pieChartLabels"
+    (chartClick)="onChartClick($event)"
+  >
+  </canvas>
+</div>

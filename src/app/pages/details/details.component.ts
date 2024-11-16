@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HeaderComponent } from "../../components/header/header.component";
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration } from 'chart.js';
+import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Observable, of } from 'rxjs';
 
@@ -20,8 +20,8 @@ export class DetailsComponent implements OnInit {
 
 
     public details$: any;
-    public olympics$: Observable<any> = of(null);
 
+    public countryName: string = ''
     public totalParticipationsCount: number = 0
     public totalMedalsCount: number = 0
     public totalAtheletesCount: number = 0
@@ -29,7 +29,9 @@ export class DetailsComponent implements OnInit {
     public countryId!: string | null
     public barChartData: ChartConfiguration<'bar'>['data'] = {
         datasets: [{ data: [] }]
-
+    };
+    public barChartOptions: ChartOptions<'bar'> = {
+        responsive: true,
     };
 
     ngOnInit(): void {
@@ -39,6 +41,7 @@ export class DetailsComponent implements OnInit {
 
         const subscription = this.olympicService.getOlympicById(this.countryId as string).subscribe((data: any) => {
             this.details$ = data
+            this.countryName = this.details$.country
             this.totalParticipationsCount = this.details$.participations.length
             for (let participation of this.details$.participations) {
 
