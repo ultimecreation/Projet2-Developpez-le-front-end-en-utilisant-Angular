@@ -1,5 +1,5 @@
 <app-header
-  title="Name of the country"
+  title="{{ countryName }}"
   [headerData]="[
     { data: 'Number of entries', count: totalParticipationsCount },
     { data: 'Total number medals', count: totalMedalsCount },
@@ -9,7 +9,7 @@
 </app-header>
 <a routerLink="/">< Go Back</a>
 
-<div style="display: block">
+<div class="container" style="height: 800px">
   <canvas
     baseChart
     width="400"
