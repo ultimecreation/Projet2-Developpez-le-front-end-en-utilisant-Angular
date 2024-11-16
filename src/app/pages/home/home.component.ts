@@ -1,7 +1,9 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ChartOptions } from 'chart.js';
-import { map, Observable, of } from 'rxjs';
+import { ChartEvent, ChartOptions } from 'chart.js';
+import { Observable, of } from 'rxjs';
+import { OlympicInterface } from 'src/app/core/models/Olympic';
+import { ParticipationInterface } from 'src/app/core/models/Participation';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
@@ -13,28 +15,27 @@ export class HomeComponent implements OnInit {
     private destroyRef = inject(DestroyRef)
     private router = inject(Router)
 
-    public olympics$: Observable<any> = of(null);
+    public olympics$: Observable<OlympicInterface[] | null> = of(null);
     public countriesCount: number = 0
     public joCount: number = 0
     // Pie
     public pieChartOptions: ChartOptions<'pie'> = { responsive: true };
-    public pieChartLabels: any[] = []
+    public pieChartLabels: string[] = []
     public pieChartDatasets: [{ data: number[] }] = [{ data: [0, 0, 0, 0, 0] }];
 
     constructor(private olympicService: OlympicService) { }
 
     ngOnInit(): void {
         const subscription = this.olympicService.getOlympics().subscribe({
-            next: (data: any[]) => {
+            next: (data: OlympicInterface[]) => {
                 this.countriesCount = data.length
-                console.log(data)
                 for (let item of data) {
                     const participationsLength = item.participations.length
                     if (this.joCount < participationsLength) this.joCount = participationsLength
 
                     this.pieChartLabels = [... this.pieChartLabels, item.country]
                     const totalMedalsCount = item.participations.reduce(
-                        (acc: any, current: any) => {
+                        (acc: number, current: ParticipationInterface) => {
                             return acc + current.medalsCount
                         }, 0)
                     this.pieChartDatasets[0].data.unshift(totalMedalsCount)
@@ -46,13 +47,17 @@ export class HomeComponent implements OnInit {
         this.destroyRef.onDestroy(() => subscription.unsubscribe())
     }
 
-    onChartClick = (e: any) => {
-        window.console.log('onChartClick', e);
-        if (e.active.length > 0) {
-            const country = this.pieChartLabels[e.active[0].index];
+    onChartClick($event: {
+        event?: ChartEvent;
+        active?: object[] | any;
+    }) {
+        console.log($event.active)
+        if ($event.active && $event.active.length > 0) {
+            const country = this.pieChartLabels[$event.active[0].index];
             const subscription = this.olympicService.getOlympicByCountry(country).subscribe({
-                next: (data: any) => {
-                    this.router.navigateByUrl(`details/${data.id}`)
+                next: (data: OlympicInterface | undefined) => {
+
+                    this.router.navigateByUrl(`details/${data?.id}`)
                 }
             })
             this.destroyRef.onDestroy(() => subscription.unsubscribe())
