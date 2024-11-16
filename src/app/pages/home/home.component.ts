@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
     private destroyRef = inject(DestroyRef)
     private router = inject(Router)
 
+    public errorMsg: string = '';
+
     public olympics$: Observable<OlympicInterface[] | null> = of(null);
     public countriesCount: number = 0
     public joCount: number = 0
@@ -54,11 +56,15 @@ export class HomeComponent implements OnInit {
         console.log($event.active)
         if ($event.active && $event.active.length > 0) {
             const country = this.pieChartLabels[$event.active[0].index];
+
             const subscription = this.olympicService.getOlympicByCountry(country).subscribe({
                 next: (data: OlympicInterface | undefined) => {
-
-                    this.router.navigateByUrl(`details/${data?.id}`)
-                }
+                    if (!data) {
+                        return this.errorMsg = 'An error occured while retriving data'
+                    }
+                    return this.router.navigateByUrl(`details/${data?.id}`)
+                },
+                error: (error) => console.log("TEST", error)
             })
             this.destroyRef.onDestroy(() => subscription.unsubscribe())
         }

@@ -41,7 +41,9 @@ export class OlympicService {
     }
     getOlympicById(id: number) {
         return this.http.get<OlympicInterface[]>(this.olympicUrl).pipe(
-            map((value) => value.find((val: OlympicInterface) => val.id === id)),
+            map((value) => {
+                return value.find((val: OlympicInterface) => val.id === id)
+            }),
             catchError((error, caught) => {
                 // TODO: improve error handling
                 console.error(error);
