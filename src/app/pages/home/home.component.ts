@@ -58,11 +58,11 @@ export class HomeComponent implements OnInit {
 
             const subscription = this.olympicService.getOlympicByCountry(country).subscribe({
                 next: (data: OlympicInterface | undefined) => {
-                    // data = undefined
+                    data = undefined
                     if (!data) {
                         return this.errorMsg = 'An error occured while retriving data'
                     }
-                    // return
+                    return
                     return this.router.navigateByUrl(`details/${data?.id}`)
                 },
 

@@ -14,7 +14,6 @@ import { ErrorComponent } from "./components/error/error.component";
 @NgModule({
     declarations: [AppComponent, HomeComponent, NotFoundComponent],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, HeaderComponent, BaseChartDirective, OfflineComponent, ErrorComponent],
-
     providers: [
         provideCharts(withDefaultRegisterables())
     ],
