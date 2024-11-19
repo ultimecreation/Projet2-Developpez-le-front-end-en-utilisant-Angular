@@ -48,11 +48,6 @@ export class DetailsComponent implements OnInit {
             if (!this.details$) {
                 return this.errorMsg = 'An error occured while retriving data'
             }
-            if (this.details$) {
-                this.countryName = this.details$?.country
-                this.totalParticipationsCount = this.details$?.participations.length
-            }
-
 
             this.countryName = this.details$?.country
             this.totalParticipationsCount = this.details$?.participations.length
