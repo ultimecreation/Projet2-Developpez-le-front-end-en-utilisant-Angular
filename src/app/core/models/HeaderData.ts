@@ -1,1 +1,4 @@
-export interface HeaderDataInterface { data: string, count: number }
+export interface HeaderDataInterface {
+    data: string
+    count: number
+}

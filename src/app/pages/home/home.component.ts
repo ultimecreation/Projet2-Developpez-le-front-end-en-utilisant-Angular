@@ -1,4 +1,4 @@
-import { Component, DestroyRef, EventEmitter, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChartEvent, ChartOptions } from 'chart.js';
 import { Observable, of } from 'rxjs';
@@ -51,12 +51,10 @@ export class HomeComponent implements OnInit {
         event?: ChartEvent;
         active?: object[] | any;
     }) {
-        console.log($event.active)
         if ($event.active && $event.active.length > 0) {
             const country = this.pieChartLabels[$event.active[0].index];
             const subscription = this.olympicService.getOlympicByCountry(country).subscribe({
                 next: (data: OlympicInterface | undefined) => {
-
                     this.router.navigateByUrl(`details/${data?.id}`)
                 }
             })
