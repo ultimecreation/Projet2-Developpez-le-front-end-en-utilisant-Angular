@@ -43,6 +43,7 @@ export class DetailsComponent implements OnInit {
 
         const subscription = this.olympicService.getOlympicById(this.countryId).subscribe((data: OlympicInterface | undefined) => {
             this.details$ = data
+            // this.details$ = undefined
 
             if (!this.details$) {
                 return this.errorMsg = 'An error occured while retriving data'
