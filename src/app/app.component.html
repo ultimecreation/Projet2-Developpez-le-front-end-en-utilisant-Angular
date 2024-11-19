@@ -1,3 +1,7 @@
 <div class="container">
+  @if(connectionStatus === 'offline'){
+  <app-offline />
+  } @else{
   <router-outlet></router-outlet>
+  }
 </div>
