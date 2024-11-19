@@ -31,7 +31,7 @@ export class OlympicService {
             tap((value) => this.olympics$.next(value)),
             catchError((error, caught) => {
                 // TODO: improve error handling
-                console.error(error);
+                // console.error("TEST3", error);
                 // can be useful to end loading state and let the user know something went wrong
                 this.olympics$.next(null);
                 return caught;
@@ -39,15 +39,19 @@ export class OlympicService {
         );
     }
     getOlympicById(id: number) {
-        return this.http.get<OlympicInterface[]>(this.olympicUrl)
-            .pipe(
-                map((value) => value.find((val: OlympicInterface) => val.id === id)),
-                catchError((error, caught) => {
-                    console.error(error);
-                    this.olympics$.next(null);
-                    return caught;
-                })
-            );
+
+        return this.http.get<OlympicInterface[]>(this.olympicUrl).pipe(
+            map((value) => {
+                return value.find((val: OlympicInterface) => val.id === id)
+            }),
+            catchError((error, caught) => {
+                // TODO: improve error handling
+                console.error(error);
+                // can be useful to end loading state and let the user know something went wrong
+                this.olympics$.next(null);
+                return caught;
+            })
+        );
     }
 
     getOlympicByCountry(country: string) {

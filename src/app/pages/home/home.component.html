@@ -7,7 +7,9 @@
 >
 </app-header>
 
-<!-- <p>{{ (olympics$ | async)?.length }} data loaded</p> -->
+@if (errorMsg) {
+<app-error [errorMsg]="errorMsg" />
+}
 <div class="container" style="height: 800px">
   <canvas
     baseChart

@@ -8,7 +8,9 @@
 >
 </app-header>
 <a routerLink="/">< Go Back</a>
-
+@if (errorMsg) {
+<app-error [errorMsg]="errorMsg" />
+}
 <div class="container" style="height: 800px">
   <canvas
     baseChart

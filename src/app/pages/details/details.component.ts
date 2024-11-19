@@ -4,13 +4,13 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Observable, Observer, of } from 'rxjs';
 import { OlympicInterface } from 'src/app/core/models/Olympic';
+import { ErrorComponent } from "../../components/error/error.component";
 
 @Component({
     selector: 'app-details',
     standalone: true,
-    imports: [HeaderComponent, BaseChartDirective, RouterLink],
+    imports: [HeaderComponent, BaseChartDirective, RouterLink, ErrorComponent],
     templateUrl: './details.component.html',
     styleUrl: './details.component.scss'
 })
@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit {
 
 
     public details$: OlympicInterface | undefined;
-
+    public errorMsg: string = '';
     public countryName: string | undefined
     public totalParticipationsCount: number = 0
     public totalMedalsCount: number = 0
@@ -44,20 +44,28 @@ export class DetailsComponent implements OnInit {
         const subscription = this.olympicService.getOlympicById(this.countryId).subscribe((data: OlympicInterface | undefined) => {
             this.details$ = data
             // this.details$ = undefined
+
+            if (!this.details$) {
+                return this.errorMsg = 'An error occured while retriving data'
+            }
             if (this.details$) {
                 this.countryName = this.details$?.country
                 this.totalParticipationsCount = this.details$?.participations.length
-                for (let participation of this.details$?.participations) {
-
-                    this.barChartData.datasets[0].data.push(participation.medalsCount)
-                    this.barChartData.datasets[0].label = 'Medals'
-                    this.barChartData.labels?.push(participation.year)
-
-                    this.totalMedalsCount += participation.medalsCount
-                    this.totalAtheletesCount += participation.athleteCount
-                }
             }
 
+
+            this.countryName = this.details$?.country
+            this.totalParticipationsCount = this.details$?.participations.length
+            for (let participation of this.details$?.participations) {
+
+                this.barChartData.datasets[0].data.push(participation.medalsCount)
+                this.barChartData.datasets[0].label = 'Medals'
+                this.barChartData.labels?.push(participation.year)
+
+                this.totalMedalsCount += participation.medalsCount
+                this.totalAtheletesCount += participation.athleteCount
+            }
+            return
         })
 
         this.destroyRef.onDestroy(() => subscription.unsubscribe())

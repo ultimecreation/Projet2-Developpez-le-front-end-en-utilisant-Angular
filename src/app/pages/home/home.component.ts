@@ -65,7 +65,9 @@ export class HomeComponent implements OnInit {
                     // return
                     return this.router.navigateByUrl(`details/${data?.id}`)
                 },
+
                 error: (error) => console.log(error)
+
             })
             this.destroyRef.onDestroy(() => subscription.unsubscribe())
         }
