@@ -7,7 +7,7 @@ Once you have cloned the project, you have to run `npm install` in order to down
 ## Development server
 
 For the development, you can run either `ng serve` or `npm start` for a dev server.
-Then avigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Then navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Build
 
