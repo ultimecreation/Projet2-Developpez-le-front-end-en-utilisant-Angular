@@ -1,8 +1,15 @@
 .center {
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  a {
+    text-decoration: none;
+    background: black;
+    padding: 0.25rem 1rem;
+    color: lightgray;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 1rem;
+  }
 }
