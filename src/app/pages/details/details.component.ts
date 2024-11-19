@@ -43,6 +43,7 @@ export class DetailsComponent implements OnInit {
 
         const subscription = this.olympicService.getOlympicById(this.countryId).subscribe((data: OlympicInterface | undefined) => {
             this.details$ = data
+            // this.details$ = undefined
             if (this.details$) {
                 this.countryName = this.details$?.country
                 this.totalParticipationsCount = this.details$?.participations.length
