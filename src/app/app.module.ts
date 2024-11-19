@@ -7,10 +7,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HeaderComponent } from "./components/header/header.component";
 import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { OfflineComponent } from "./components/offline/offline.component";
+
 import { ErrorComponent } from "./components/error/error.component";
+
 @NgModule({
     declarations: [AppComponent, HomeComponent, NotFoundComponent],
-    imports: [BrowserModule, AppRoutingModule, HttpClientModule, HeaderComponent, BaseChartDirective, ErrorComponent],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, HeaderComponent, BaseChartDirective, OfflineComponent],
+
     providers: [
         provideCharts(withDefaultRegisterables())
     ],

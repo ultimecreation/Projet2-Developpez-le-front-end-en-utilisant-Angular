@@ -1,10 +1,8 @@
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  a {
-    text-decoration: none;
+.connection-status {
+  text-align: center;
+  margin-top: 50px;
+
+  button {
     background: black;
     padding: 0.25rem 1rem;
     color: lightgray;
