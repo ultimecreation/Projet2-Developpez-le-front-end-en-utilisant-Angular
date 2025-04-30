@@ -2,6 +2,7 @@
 
 ## Initial setup
 
+
 Once you have cloned the project, you have to run `npm install` in order to download your `node_modules` folder
 
 ## Development server
