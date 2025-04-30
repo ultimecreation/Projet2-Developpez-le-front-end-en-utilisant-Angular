@@ -26,3 +26,4 @@ The routing rules can be found at `src/app/app-routing.module.ts`.
 Good luck!
 
 # Projet2-Developpez-le-front-end-en-utilisant-Angular
+
